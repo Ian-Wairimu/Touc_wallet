@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/users.entity';
+import { WalletModule } from './wallet/wallet.module';
 
 const entities = [User];
 @Module({
@@ -21,8 +22,11 @@ const entities = [User];
       database: process.env.DB_NAME,
       entities: entities,
       synchronize: true,
+      logging: true,
+      logger: 'file',
     }),
     UsersModule,
+    WalletModule,
   ],
   controllers: [AppController],
   providers: [AppService],
