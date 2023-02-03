@@ -6,8 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/users.entity';
 import { WalletModule } from './wallet/wallet.module';
+import { Wallet } from './wallet/wallet.entity';
 
-const entities = [User];
+const entities = [User, Wallet];
 @Module({
   imports: [
     ConfigModule.forRoot({
