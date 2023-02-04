@@ -7,19 +7,23 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class WalletService {
+  wallet: Wallet;
   constructor(
     @InjectRepository(Wallet)
     private walletRepository: Repository<Wallet>,
   ) {}
-  async createWallet(createWalletDto: CreateWalletDto) {
-    const wallet = this.walletRepository.create(createWalletDto);
-    const errors = await validate(wallet);
+  async createWallet(
+    createWalletDto: CreateWalletDto,
+  ): Promise<CreateWalletDto> {
+    this.wallet = this.walletRepository.create(createWalletDto);
+    const errors = await validate(this.wallet);
     if (errors.length > 0) {
       throw new Error('validation failed..');
     } else {
-      await this.walletRepository.save(wallet);
+      await this.walletRepository.save(this.wallet);
     }
-    return wallet;
+
+    return this.wallet;
   }
   findAll(): Promise<Wallet[]> {
     return this.walletRepository.find();

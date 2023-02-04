@@ -29,7 +29,9 @@ export class User {
   @Column()
   @CreateDateColumn()
   createdAt: Date;
-  @OneToMany(() => Wallet, (wallet: Wallet) => wallet.user)
+  @OneToMany(() => Wallet, (wallet: Wallet) => wallet.user, {
+    cascade: ['insert', 'update'],
+  })
   wallets: Wallet[];
   @BeforeInsert()
   async hashPassword() {

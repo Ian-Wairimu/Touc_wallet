@@ -2,8 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   Index,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -27,10 +27,7 @@ export class Wallet {
   @CreateDateColumn()
   createdAt: Date;
   @Index()
-  @ManyToOne(() => User, (user: User) => user.wallets, {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'user_wallets' })
+  @ManyToOne(() => User, (user: User) => user.wallets)
+  @JoinColumn({ name: 'userId' })
   user: User;
 }
