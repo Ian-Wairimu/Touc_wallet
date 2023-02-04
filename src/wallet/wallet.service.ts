@@ -28,11 +28,25 @@ export class WalletService {
 
     return this.wallet;
   }
-  findAll(): Promise<Wallet[]> {
-    return this.walletRepository.find();
+  findById(walletsId: number): Promise<Wallet> {
+    return this.walletRepository.findOne({
+      where: {
+        walletId: walletsId,
+      },
+    });
   }
-  findById(id: number): Promise<Wallet> {
-    return this.walletRepository.findOneBy({ walletId: id });
+  async deposit(
+    id: number,
+    walletDto: CreateWalletDto,
+  ): Promise<CreateWalletDto> {
+    if (!id) {
+      throw new Error('update error id is empty');
+    }
+    try {
+      return await this.walletRepository.save(walletDto);
+    } catch (e) {
+      throw new Error(e.message);
+    }
   }
   async remove(id: number): Promise<void> {
     await this.walletRepository.delete(id);

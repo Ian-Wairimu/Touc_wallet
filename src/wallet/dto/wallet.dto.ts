@@ -5,7 +5,7 @@ export class CreateWalletDto {
   balance: number;
   @IsNotEmpty()
   @IsString()
-  businessName: string;
+  businessName = '';
   @IsString()
   businessDescription: string;
   @IsNotEmpty()

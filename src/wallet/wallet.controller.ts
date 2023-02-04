@@ -1,10 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
   Post,
+  Put,
 } from '@nestjs/common';
 import { WalletService } from './wallet.service';
 import { CreateWalletDto } from './dto/wallet.dto';
@@ -19,8 +21,21 @@ export class WalletController {
   ): Promise<CreateWalletDto> {
     return this.walletService.createWallet(createWalletDto);
   }
-  @Get(':id')
-  findById(@Param('id', ParseIntPipe) id: number): Promise<Wallet> {
-    return this.walletService.findById(id);
+  @Put(':id/deposit')
+  deposit(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() walletDto: CreateWalletDto,
+  ) {
+    return this.walletService.deposit(id, walletDto);
+  }
+  @Get(':walletId')
+  findById(
+    @Param('walletId', ParseIntPipe) walletsId: number,
+  ): Promise<Wallet> {
+    return this.walletService.findById(walletsId);
+  }
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.walletService.remove(id);
   }
 }
