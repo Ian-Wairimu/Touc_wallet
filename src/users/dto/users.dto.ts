@@ -4,6 +4,7 @@ import {
   IsString,
   IsStrongPassword,
 } from 'class-validator';
+import { Wallet } from '../../wallet/wallet.entity';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -17,4 +18,5 @@ export class CreateUserDto {
   @IsString()
   @IsStrongPassword()
   password: string;
+  wallets: Wallet[];
 }

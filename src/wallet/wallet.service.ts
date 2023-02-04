@@ -4,6 +4,7 @@ import { CreateWalletDto } from './dto/wallet.dto';
 import { validate } from 'class-validator';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class WalletService {
@@ -11,6 +12,7 @@ export class WalletService {
   constructor(
     @InjectRepository(Wallet)
     private walletRepository: Repository<Wallet>,
+    private readonly userService: UsersService,
   ) {}
   async createWallet(
     createWalletDto: CreateWalletDto,
@@ -20,6 +22,7 @@ export class WalletService {
     if (errors.length > 0) {
       throw new Error('validation failed..');
     } else {
+      this.wallet['user'] = this.userService.user;
       await this.walletRepository.save(this.wallet);
     }
 
@@ -28,7 +31,7 @@ export class WalletService {
   findAll(): Promise<Wallet[]> {
     return this.walletRepository.find();
   }
-  findOne(id: number): Promise<Wallet> {
+  findById(id: number): Promise<Wallet> {
     return this.walletRepository.findOneBy({ walletId: id });
   }
   async remove(id: number): Promise<void> {
