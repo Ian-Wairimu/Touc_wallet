@@ -190,6 +190,7 @@ Currently the application has routes that can allow a user to
 - get a wallet by id
 - add amount to the wallet balance and get the balance of the wallet
 
+and also included the touch_wallet.postman_collection.json to show all the test i have done in postman and also included the ormlogs.log to show the logs of the databases.
 ## Stay in touch
 
 - Author - Ian Wairimu
