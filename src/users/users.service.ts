@@ -42,4 +42,7 @@ export class UsersService {
       },
     });
   }
+  async remove(id: number) {
+    await this.userRepository.delete(id);
+  }
 }
